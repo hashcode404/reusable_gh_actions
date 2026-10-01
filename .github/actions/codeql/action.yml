@@ -1,0 +1,44 @@
+name: CodeQL
+description: Initialize CodeQL and analyze the checked-out repository.
+
+inputs:
+  languages:
+    description: Comma-separated languages to analyze, such as javascript-typescript,python.
+    required: true
+  build-mode:
+    description: Build mode for compiled languages.
+    required: false
+    default: autobuild
+  queries:
+    description: Additional CodeQL queries or query suites.
+    required: false
+  config-file:
+    description: Path to a CodeQL configuration file.
+    required: false
+  packs:
+    description: CodeQL packs to download and use.
+    required: false
+  source-root:
+    description: Root directory of the source code.
+    required: false
+  category:
+    description: SARIF category used to distinguish analysis results.
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: ${{ inputs.languages }}
+        build-mode: ${{ inputs.build-mode }}
+        queries: ${{ inputs.queries }}
+        config-file: ${{ inputs.config-file }}
+        packs: ${{ inputs.packs }}
+        source-root: ${{ inputs.source-root }}
+
+    - name: Analyze
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: ${{ inputs.category }}
