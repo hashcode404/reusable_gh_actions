@@ -1,0 +1,15 @@
+name: CodeQL Analyze
+description: Analyze the checked-out repository with CodeQL.
+
+inputs:
+  category:
+    description: SARIF category used to distinguish analysis results.
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Analyze
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: ${{ inputs.category }}

@@ -21,9 +21,6 @@ inputs:
   source-root:
     description: Root directory of the source code.
     required: false
-  category:
-    description: SARIF category used to distinguish analysis results.
-    required: false
 
 runs:
   using: composite
@@ -37,8 +34,3 @@ runs:
         config-file: ${{ inputs.config-file }}
         packs: ${{ inputs.packs }}
         source-root: ${{ inputs.source-root }}
-
-    # - name: Analyze
-    #   uses: github/codeql-action/analyze@v4
-    #   with:
-    #     category: ${{ inputs.category }}
